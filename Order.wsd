@@ -1,0 +1,48 @@
+@startuml
+header Express food
+title Création d'une commande
+actor Client
+participant App
+participant Panier
+participant Commande
+database Bdd
+participant Banque
+actor Livreur
+Client -> App: Consulte les produits
+activate App
+App -> Bdd:  Requête menu du jour
+activate Bdd
+Bdd -->> App: Plats du jour
+deactivate Bdd
+App -->> Client: Affiche les produits
+deactivate App
+Client -> App: Ajoute les produits au panier
+activate App
+create Panier
+App -> Panier: Création panier
+Panier -> Bdd: Enregistrement du panier
+App -->> Client: Affiche le panier
+deactivate App
+Client -> App: Valide le panier
+activate App
+create Commande
+App -> Commande: Création commande
+Commande -> Bdd: Enregistrement de la commande
+App -->> Client: Authentification
+Client -> App: Se connecte ou créé un compte
+App -> Bdd: Nouveau client ou client existant
+App -->> Client: Choix Lieu de livraison et mode de paiement
+Client -> App: Saisi les informations
+App -> Banque: Paiement
+alt succés
+activate Banque
+  Banque -> App: Paiement accepté
+  App -> Client: Commande Confirmée
+  App -> Livreur: Notification nouvelle commande
+else echec
+  Banque -> App: Paiement refusé
+deactivate Banque
+  App -> Client: Commande échouée
+deactivate App
+end
+@enduml

@@ -1,0 +1,31 @@
+@startuml
+header Express Food
+title  Livraison d'une commande
+actor Livreur
+database Bdd
+participant App
+actor Client
+Client <- App: Commande confirmée
+App -->> Client: En attente d'un livreur dispo
+App -> Bdd: Livreur disponible le plus proche ?
+alt
+Livreur -> Bdd: non disponible
+else
+Livreur -> Bdd: disponible
+  alt 
+  Livreur -> Bdd: Pas de stock
+  else
+  Livreur -> Bdd: Stock positif
+  end
+end
+activate Bdd
+Bdd -> App: Selection du livreur
+deactivate Bdd
+App -> Livreur: Nouvelle Commande
+activate Livreur
+App -->> Client: En cours de Livraison
+Livreur -->> Client: Livre le client
+Livreur -> App: Commande Livrée
+deactivate Livreur
+App -> Bdd: Statut commande livrée
+@enduml
