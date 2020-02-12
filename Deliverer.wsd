@@ -5,6 +5,7 @@ actor Livreur
 database Bdd
 participant App
 actor Client
+ref over Livreur, App, Bdd : Authentification
 Client <- App: Commande confirmée
 App -->> Client: En attente d'un livreur dispo
 App -> Bdd: Livreur disponible le plus proche ?

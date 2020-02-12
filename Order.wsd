@@ -28,9 +28,7 @@ activate App
 create Commande
 App -> Commande: Création commande
 Commande -> Bdd: Enregistrement de la commande
-App -->> Client: Authentification
-Client -> App: Se connecte ou créé un compte
-App -> Bdd: Nouveau client ou client existant
+ref over Client, App, Bdd : Authentification
 App -->> Client: Choix Lieu de livraison et mode de paiement
 Client -> App: Saisi les informations
 App -> Banque: Paiement

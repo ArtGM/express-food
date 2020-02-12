@@ -4,7 +4,7 @@ title Ajout d'un nouveau plat
 actor Cuisinier
 participant App
 database Bdd
-Cuisinier -> App: authentification
+ref over Cuisinier, App, Bdd : Authentification
 activate App
 App -->> Cuisinier: Formulaire d'ajout de plat
 Cuisinier -> App: Ajoute un nouveau plat
