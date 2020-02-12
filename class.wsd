@@ -1,4 +1,6 @@
 @startuml
+header expressfood
+title Diagramme de classe
 class Client {
   +id : INT
   +username : STRING
@@ -11,24 +13,22 @@ class Client {
 class Cart {
   +id : INT
 }
-class Cart_product {
-  +id : INT
-  +quantity : INT
-}
 class Product {
   +id : INT
   +name : STRING
   +description : STRING
   +price : FLOAT
+  +stock_product : INT
+}
+class Cart_product {
+  +id : INT
+  +quantity : INT
 }
 class Product_type {
   +id : INT
   +type : STRING
 }
-class Stock_product {
-  +id : INT
-  +stock_quantity : INT
-}
+
 class Order_state {
   +id : INT
   +state_name : STRING
@@ -50,12 +50,11 @@ class Deliverer_stock_product {
 }
 Client "0..1" - "*" Cart
 Cart "1..*" - "0..1" Product
-(Cart, Product) .. Cart_product
-Product "*" -- "1" Product_type
-Product "1..*" --* "0..*" Stock_product
-Cart "1" -- "1" Order
-Order "1..*" <- "1" Order_state
-Order "0..*" -- "1" Deliverer
-Deliverer "1" - "1..*" Stock_product
-(Deliverer, Stock_product) .. Deliverer_stock_product
+(Cart, Product) . Cart_product
+Product "*" - "1" Product_type
+Cart "1" --- "1" Order
+Order "1..*" <-- "1" Order_state
+Order "0..*" - "1" Deliverer
+Product "1..*" -- "1..*" Deliverer
+(Deliverer, Product) .. Deliverer_stock_product
 @enduml

@@ -37,7 +37,7 @@ App -> Banque: Paiement
 alt succés
 activate Banque
   Banque -> App: Paiement accepté
-  App -> Client: Commande Confirmée
+  App -> Client: Commande Confirmée (affichage de la page de statut de commande)
   App -> Livreur: Notification nouvelle commande
 else echec
   Banque -> App: Paiement refusé

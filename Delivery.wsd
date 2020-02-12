@@ -1,0 +1,22 @@
+@startuml
+header expressfood
+title Livraison de commande
+left to right direction
+skinparam packageStyle rectangle
+actor Livreur
+rectangle "Livraison de commande" {
+  :Livreur: --> (Met à jour sa position)
+  :Livreur: --> (Modifie le statut de Livraison)
+  :Livreur: --> (Authentification)
+  :Livreur: --> (Livre une commande)
+  :Livreur: --> (Modifie sa disponibilité)
+  :Livreur: --> (Consulte les commandes)
+
+  (Met à jour sa position) .> (Authentification) : <<include >>
+  (Authentification) <.. (Modifie le statut de Livraison) : <<include>>
+  (Authentification) <.. (Modifie sa disponibilité) : <<include>>
+  (Authentification) <. (Consulte les commandes) : <<include>>
+  
+
+}
+@enduml

@@ -1,0 +1,16 @@
+@startuml
+header expressfood
+title Ajout de plat
+left to right direction
+skinparam packageStyle rectangle
+actor Cuisinier
+rectangle "Ajout de Plat" {
+  :Cuisinier: --> (Authentification)
+  :Cuisinier: ---> (Consulte les produits)
+  :Cuisinier: ---> (Ajoute un produit)
+  :Cuisinier: ---> (Modifie un produit)
+  (Modifie un produit) .> (Consulte les produits) : <<include>>
+  (Modifie un produit) ..> (Authentification) : <<include>>
+  (Ajoute un produit) ..> (Authentification) : <<include>>
+}
+@enduml

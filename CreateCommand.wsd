@@ -1,0 +1,21 @@
+@startuml
+header expressfood
+title Création de commande
+left to right direction
+skinparam packageStyle rectangle
+actor Client
+actor Banque <<system>>
+rectangle "Création de commande" {
+  :Client: --- (Paiement)
+  :Client: -- (Authentification)
+  :Client: -- (Valide le panier)
+  :Client: -- (Consulter les produits)
+  :Client: -- (Ajouter les produits au panier)
+  :Client: -- (Suivre sa commande)
+  (Authentification) <.. (Paiement) : <<include>>
+  (Valide le panier) ..> (Paiement) : <<include>>
+  (Valide le panier) .> (Ajouter les produits au panier) : <<include>>
+  (Ajouter les produits au panier) .> (Consulter les produits)
+  (Paiement) -- :Banque:
+}
+@enduml

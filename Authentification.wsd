@@ -1,0 +1,42 @@
+@startuml
+header expressfood
+title Authentification
+actor Client
+participant App
+database Bdd
+App -> Client : Authentification, Inscrit ou nouveau client ?
+activate App
+alt Client inscrit
+
+	App -> Client: Formulaire de connexion
+	Client -> App : Saisie des identifiants
+  App -> App : validation des champs
+  activate App
+    alt champs valides
+    App -> Bdd : vérification des identifiants
+      alt identifiants valides
+      Bdd -> App : OK
+      App -> Client : Connexion réussie
+      else identifiants non valides
+      Bdd -> App : Erreur
+      App -> Client : Connexion échouée
+      end
+    else Erreur de saisie
+      App -> Client : Erreur de saisie
+    deactivate App
+    end
+else Nouveau CLient
+	App -> Client: Formulaire d'inscription
+  Client -> App : Saisie des informations
+  App -> App : validation des champs
+  activate App
+    alt champs valides
+    App -> Bdd : Enregistrement du nouveau CLient
+    App -> Client : Enregistrement effectué
+    else Erreur de saisie
+      App -> Client : Erreur de saisie
+    deactivate App
+    end
+
+end
+@enduml
